@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useOrders } from '../hooks/useOrders'
 import {
@@ -13,6 +13,7 @@ import { deleteOrderPhoto, uploadOrderPhoto } from '../firebase/storage'
 import { PhotoUploader } from '../components/PhotoUploader'
 import { PhotoGallery } from '../components/PhotoGallery'
 import { recalcCaseFlag } from '../utils/recalcCaseFlag'
+import { ORDER_CATEGORIES } from '../utils/categories'
 
 let pendingFileSeq = 0
 
@@ -44,10 +45,6 @@ export function OrderFormPage() {
       setInitialized(true)
     }
   }, [isEdit, existingOrder, initialized])
-
-  const categoryOptions = useMemo(() => {
-    return [...new Set(orders.map((o) => o.category).filter(Boolean))]
-  }, [orders])
 
   function handleFilesSelected(files) {
     const newPending = files.map((file) => ({
@@ -167,18 +164,21 @@ export function OrderFormPage() {
       <form className="order-form" onSubmit={handleSubmit}>
         <label>
           カテゴリ
-          <input
-            list="category-options"
+          <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             required
             autoFocus
-          />
-          <datalist id="category-options">
-            {categoryOptions.map((opt) => (
-              <option key={opt} value={opt} />
+          >
+            <option value="" disabled>
+              選択してください
+            </option>
+            {ORDER_CATEGORIES.map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
             ))}
-          </datalist>
+          </select>
         </label>
         <label>
           メモ

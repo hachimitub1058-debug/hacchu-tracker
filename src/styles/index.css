@@ -497,11 +497,17 @@ a {
 }
 
 .order-form input,
+.order-form select,
 .order-form textarea {
   padding: 10px;
   border: 1px solid var(--color-border);
   border-radius: 8px;
   background: var(--color-surface);
+}
+
+.order-form select {
+  min-height: 44px;
+  appearance: auto;
 }
 
 .order-form-checkbox {
