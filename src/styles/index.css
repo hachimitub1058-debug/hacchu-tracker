@@ -52,6 +52,7 @@ body {
 
 button,
 input,
+select,
 textarea {
   font: inherit;
   color: inherit;
@@ -508,6 +509,13 @@ a {
 .order-form select {
   min-height: 44px;
   appearance: auto;
+  color: var(--color-text);
+  color-scheme: light dark;
+}
+
+.order-form select option {
+  color: var(--color-text);
+  background: var(--color-surface);
 }
 
 .order-form-checkbox {
